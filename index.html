@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مقهى نجمة حور</title>
+  <meta name="description" content="استمتع بأجود خلطات القهوة في أجواء دافئة ومرحبة. مقهى نجمة حور — الدمام، حي الزهور." />
+  <meta name="author" content="مقهى نجمة حور" />
+
+  <meta property="og:title" content="مقهى نجمة حور" />
+  <meta property="og:description" content="استمتع بأجود خلطات القهوة في أجواء دافئة ومرحبة." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="images/logo.png" />
+
+  <link rel="icon" type="image/png" href="images/logo.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ╔══════════════════════════════╗
+       ║           HEADER            ║
+       ╚══════════════════════════════╝ -->
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="images/logo.png" alt="شعار مقهى نجمة حور" />
+        <span class="logo-text">نجمة حور</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="#menu">القائمة</a>
+        <a href="#about">عن المقهى</a>
+        <a href="#contact">تواصل معنا</a>
+      </div>
+
+      <button class="nav-toggle" aria-label="فتح القائمة">☰</button>
+    </nav>
+  </header>
+
+  <!-- ╔══════════════════════════════╗
+       ║            HERO             ║
+       ╚══════════════════════════════╝ -->
+  <section id="hero">
+    <div class="hero-content">
+      <img class="hero-logo" src="images/logo.png" alt="نجمة حور" />
+      <h1>مقهى نجمة حور</h1>
+      <p>استمتع بأجود خلطات القهوة في أجواء دافئة ومرحبة<br />كل كوب يحكي قصة</p>
+      <a href="#menu" class="cta-btn">اكتشف القائمة</a>
+    </div>
+  </section>
+
+  <!-- ╔══════════════════════════════╗
+       ║            MENU             ║
+       ╚══════════════════════════════╝ -->
+  <section id="menu">
+    <div class="section-header">
+      <h2>قائمتنا</h2>
+      <p>اكتشف مشروباتنا وحلوياتنا المحضرة بعناية</p>
+      <div class="divider"></div>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="tabs-wrapper">
+      <div class="tabs">
+        <button class="tab-btn active" data-category="hot">☕ مشروبات ساخنة</button>
+        <button class="tab-btn" data-category="cold">🧊 مشروبات باردة</button>
+        <button class="tab-btn" data-category="juices">🥤 عصائر</button>
+        <button class="tab-btn" data-category="soda">🫧 مشروبات صودا</button>
+        <button class="tab-btn" data-category="sweets">🍰 حلويات</button>
+      </div>
+    </div>
+
+    <!-- Items Grid -->
+    <div class="menu-grid" id="menu-grid"></div>
+  </section>
+
+  <!-- ╔══════════════════════════════╗
+       ║            ABOUT            ║
+       ╚══════════════════════════════╝ -->
+  <section id="about">
+    <div class="section-header">
+      <h2>عن المقهى</h2>
+      <p>قصة شغف القهوة والضيافة العربية الأصيلة</p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          مرحباً بكم في مقهى نجمة حور، حيث تلتقي أجود خلطات القهوة
+          مع أصالة الضيافة العربية في أجواء دافئة ومريحة.
+        </p>
+        <br />
+        <p>
+          نؤمن بأن كل كوب قهوة يحكي قصة — قصة الاعتناء بكل تفصيلة،
+          من اختيار الحبوب إلى اللمسة الأخيرة في كوبك.
+          نستقبلكم يومياً من الساعة 6:30 صباحاً حتى 3:00 فجراً.
+        </p>
+      </div>
+
+      <div class="about-stats">
+        <div class="stat-card">
+          <span class="stat-num">+70</span>
+          <span class="stat-label">صنفاً في القائمة</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">5</span>
+          <span class="stat-label">فئات مختارة</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">20.5</span>
+          <span class="stat-label">ساعة خدمة يومياً</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">☕</span>
+          <span class="stat-label">جودة لا تُنسى</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ╔══════════════════════════════╗
+       ║           CONTACT           ║
+       ╚══════════════════════════════╝ -->
+  <section id="contact">
+    <div class="section-header">
+      <h2>تواصل معنا</h2>
+      <p>ابقَ على تواصل معنا واكتشف آخر أخبارنا وعروضنا الخاصة</p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Info -->
+      <div class="contact-block">
+        <h3>معلومات التواصل</h3>
+
+        <div class="contact-item">
+          <span class="icon">📍</span>
+          <div class="info">
+            <strong>العنوان</strong>
+            <a href="https://maps.google.com/?q=الدمام+حي+الزهور+شارع+ابو+هريرة" target="_blank" rel="noopener">
+              الدمام — حي الزهور، شارع أبو هريرة
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <span class="icon">🕐</span>
+          <div class="info">
+            <strong>مواعيد العمل</strong>
+            <span>٦:٣٠ صباحاً — ٣:٠٠ فجراً · يومياً</span>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <span class="icon">✉️</span>
+          <div class="info">
+            <strong>البريد الإلكتروني</strong>
+            <a href="mailto:info@nejmthour.com">info@nejmthour.com</a>
+          </div>
+        </div>
+
+        <br />
+        <h3>تابعنا</h3>
+        <div class="social-links">
+          <a class="social-link" href="https://www.instagram.com/nejmt_hour_cafe" target="_blank" rel="noopener">
+            📸 إنستغرام
+          </a>
+          <a class="social-link" href="https://www.tiktok.com/@nejmt_hour_cafe" target="_blank" rel="noopener">
+            🎵 تيك توك
+          </a>
+          <a class="social-link" href="https://www.facebook.com/nejmt.hour.cafe" target="_blank" rel="noopener">
+            👥 فيسبوك
+          </a>
+          <a class="social-link" href="https://twitter.com/nejmt_hour_cafe" target="_blank" rel="noopener">
+            🐦 تويتر
+          </a>
+        </div>
+      </div>
+
+      <!-- Hours detail -->
+      <div class="contact-block">
+        <h3>مواعيد العمل</h3>
+        <ul class="hours-list">
+          <li><span>السبت</span>      <span>٦:٣٠ ص — ٣:٠٠ ف</span></li>
+          <li><span>الأحد</span>      <span>٦:٣٠ ص — ٣:٠٠ ف</span></li>
+          <li><span>الاثنين</span>    <span>٦:٣٠ ص — ٣:٠٠ ف</span></li>
+          <li><span>الثلاثاء</span>   <span>٦:٣٠ ص — ٣:٠٠ ف</span></li>
+          <li><span>الأربعاء</span>   <span>٦:٣٠ ص — ٣:٠٠ ف</span></li>
+          <li><span>الخميس</span>     <span>٦:٣٠ ص — ٣:٠٠ ف</span></li>
+          <li><span>الجمعة</span>     <span>٦:٣٠ ص — ٣:٠٠ ف</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ╔══════════════════════════════╗
+       ║           FOOTER            ║
+       ╚══════════════════════════════╝ -->
+  <footer>
+    <p>© ٢٠٢٥ <span>مقهى نجمة حور</span>. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
