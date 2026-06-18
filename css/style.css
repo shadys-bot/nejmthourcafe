@@ -248,6 +248,55 @@ section { padding: 5.5rem 2rem; }
 .divider { width: 50px; height: 3px; background: var(--gold); border-radius: 3px; margin: 1rem auto 0; }
 
 /* ══════════════════════════════════════════
+   OFFERS
+   ══════════════════════════════════════════ */
+#offers { background: var(--bg-2); }
+
+.offers-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.offer-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.offer-card:hover { border-color: var(--border-h); box-shadow: var(--shadow); }
+
+.offer-card-img {
+  height: 200px;
+  background-size: cover; background-position: center; position: relative;
+}
+.offer-card-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(5,2,1,0.7) 0%, transparent 60%);
+}
+
+.offer-card-body { padding: 1.25rem 1.35rem; }
+
+.offer-badge {
+  display: inline-block;
+  background: var(--gold); color: #0A0603;
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px;
+  padding: 3px 12px; border-radius: 50px;
+  margin-bottom: 0.75rem;
+}
+
+.offer-card-body h3 {
+  font-size: 1.05rem; font-weight: 800;
+  color: var(--white); line-height: 1.5; margin-bottom: 0.4rem;
+}
+.offer-card-body p {
+  font-size: 0.88rem; color: var(--cream-dim); line-height: 1.8;
+}
+
+@media (max-width: 600px) {
+  .offers-grid { grid-template-columns: 1fr; }
+}
+
+/* ══════════════════════════════════════════
    MENU
    ══════════════════════════════════════════ */
 #menu { background: var(--bg); }

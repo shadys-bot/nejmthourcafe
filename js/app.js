@@ -10,7 +10,7 @@ const SAR_SVG = `<svg class="sar-icon" viewBox="0 0 1124.14 1256.39" xmlns="http
 
 async function init() {
   try {
-    const res = await fetch('menu.json?v=2');
+    const res = await fetch('menu.json', { cache: 'no-cache' });
     menuData = await res.json();
   } catch (e) {
     console.error('Failed to load menu.json', e);
@@ -22,6 +22,7 @@ async function init() {
   setupMobileNav();
   setupReveal();
   setupTheme();
+  loadOffers();
 }
 
 /* ── Theme toggle ── */
@@ -29,8 +30,12 @@ function setupTheme() {
   const btn = document.getElementById('theme-toggle');
   if (!btn) return;
 
+  // Light is default — only switch to dark if user explicitly chose it
   const saved = localStorage.getItem('theme');
-  if (saved === 'light') {
+  if (saved === 'dark') {
+    document.body.classList.remove('light');
+    btn.textContent = '🌙';
+  } else {
     document.body.classList.add('light');
     btn.textContent = '☀️';
   }
@@ -135,6 +140,44 @@ function setupReveal() {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+/* ── Offers ── */
+async function loadOffers() {
+  try {
+    const res  = await fetch('offers.json', { cache: 'no-cache' });
+    const data = await res.json();
+    const offers = (data.offers || []);
+    if (!offers.length) return;
+
+    const section = document.getElementById('offers');
+    const grid    = document.getElementById('offers-grid');
+    const navLink = document.getElementById('nav-offers');
+
+    grid.innerHTML = offers.map(o => `
+      <div class="offer-card reveal">
+        ${o.image ? `<div class="offer-card-img" style="background-image:url('${o.image}')">
+          <div class="offer-card-img-overlay"></div>
+        </div>` : ''}
+        <div class="offer-card-body">
+          ${o.badge ? `<span class="offer-badge">${o.badge}</span>` : ''}
+          <h3>${o.title}</h3>
+          ${o.desc ? `<p>${o.desc}</p>` : ''}
+        </div>
+      </div>
+    `).join('');
+
+    section.style.display = '';
+    if (navLink) navLink.style.display = '';
+
+    // Wire up reveal observer for new cards
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    grid.querySelectorAll('.offer-card').forEach(el => obs.observe(el));
+  } catch (e) {
+    // offers.json missing or empty — section stays hidden
+  }
 }
 
 document.addEventListener('DOMContentLoaded', init);

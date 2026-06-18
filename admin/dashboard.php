@@ -32,6 +32,11 @@ $csrf = csrf_token();
     <span>نجمة حور</span>
   </div>
   <nav class="sidebar-nav">
+    <a href="offers.php" style="border-right-color:transparent">
+      <span class="cat-icon">🎁</span>
+      <span>العروض</span>
+    </a>
+    <div style="height:1px;background:var(--border);margin:.4rem 1.25rem"></div>
     <?php foreach ($cats as $cat): ?>
       <a href="?cat=<?= htmlspecialchars($cat['id']) ?>"
          class="<?= $cat['id'] === $active ? 'active' : '' ?>">
