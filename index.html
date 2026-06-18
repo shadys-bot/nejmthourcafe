@@ -3,10 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مقهى نجمة حور</title>
-  <meta name="description" content="استمتع بأجود خلطات القهوة في أجواء دافئة ومرحبة — مقهى نجمة حور، الدمام." />
+  <title>مقهى نجمة حور — الدمام</title>
+  <meta name="description" content="استمتع بأجود خلطات القهوة في أجواء دافئة ومرحبة — مقهى نجمة حور، الدمام، حي الزهور. مفتوح يومياً ١٢م–٤ص." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://nejmthourcafe.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="restaurant" />
+  <meta property="og:url"         content="https://nejmthourcafe.com/" />
+  <meta property="og:title"       content="مقهى نجمة حور — الدمام" />
+  <meta property="og:description" content="أجود خلطات القهوة في الدمام — مفتوح يومياً ١٢م–٤ص، حي الزهور." />
+  <meta property="og:image"       content="https://nejmthourcafe.com/images/menu/cafe.jpeg" />
+  <meta name="twitter:card"       content="summary_large_image" />
+
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="images/logo.png" />
+
+  <!-- Fonts: preconnect first, then non-render-blocking stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800;900&display=swap" />
+
+  <!-- Preload LCP image (hero background) -->
+  <link rel="preload" as="image" href="images/menu/cafe.jpeg" fetchpriority="high" />
+
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- LocalBusiness structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "نجمة حور كافيه",
+    "url": "https://nejmthourcafe.com/",
+    "image": "https://nejmthourcafe.com/images/menu/cafe.jpeg",
+    "telephone": "+966551153345",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "شارع أبو هريرة",
+      "addressLocality": "الدمام",
+      "addressRegion": "المنطقة الشرقية",
+      "addressCountry": "SA"
+    },
+    "openingHours": "Mo-Su 12:00-04:00",
+    "servesCuisine": "Coffee, Beverages",
+    "priceRange": "$$"
+  }
+  </script>
 </head>
 <body>
 
@@ -15,7 +58,7 @@
   <nav>
     <!-- Logo — no circle, bigger -->
     <div class="logo">
-      <img src="images/logo.png" alt="نجمة حور" />
+      <img src="images/logo.png" alt="نجمة حور" width="64" height="64" />
       <span class="logo-text">نجمة حور</span>
     </div>
 
@@ -57,7 +100,7 @@
   <div class="hero-content">
     <!-- Logo bigger inside circle -->
     <div class="hero-logo-ring">
-      <img src="images/logo.png" alt="نجمة حور" />
+      <img src="images/logo.png" alt="نجمة حور" width="190" height="190" />
     </div>
     <h1>مقهى نجمة حور</h1>
     <p>قصة شغف القهوة والضيافة العربية الأصيلة<br>كل كوب يحكي قصة</p>
@@ -97,7 +140,7 @@
 <section id="about">
   <div class="about-inner">
     <div class="about-img-wrap reveal">
-      <img src="images/menu/cafe.jpeg" alt="مقهى نجمة حور" />
+      <img src="images/menu/cafe.jpeg" alt="مقهى نجمة حور" width="600" height="450" loading="lazy" />
     </div>
     <div class="about-text">
       <div class="section-header reveal" style="text-align:right;margin-bottom:1.5rem;">

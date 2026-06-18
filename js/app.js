@@ -10,7 +10,7 @@ const SAR_SVG = `<svg class="sar-icon" viewBox="0 0 1124.14 1256.39" xmlns="http
 
 async function init() {
   try {
-    const res = await fetch('menu.json?v=' + Date.now());
+    const res = await fetch('menu.json?v=2');
     menuData = await res.json();
   } catch (e) {
     console.error('Failed to load menu.json', e);
