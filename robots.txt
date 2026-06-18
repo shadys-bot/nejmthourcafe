@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /admin/api/
+Disallow: /admin/includes/
+
+Sitemap: https://nejmthourcafe.com/sitemap.xml
