@@ -41,9 +41,12 @@ function menu_save_item(array $post): array {
     $price  = (float)($post['price'] ?? 0);
     $image  = trim($post['image'] ?? '');
 
-    if (!$catId || !$ar || !$en || $price <= 0) {
+    if (!$catId || !$ar || !$en || $price < 0) {
         return ['ok' => false, 'msg' => 'بيانات ناقصة'];
     }
+
+    // Default cal to '-' when left empty (e.g. games category)
+    if ($cal === '') $cal = '-';
 
     $data = menu_read();
     $found = false;
@@ -52,7 +55,7 @@ function menu_save_item(array $post): array {
         if ($cat['id'] !== $catId) continue;
 
         if ($itemId > 0) {
-            // Update existing
+            // Update existing — preserve has_price if already set
             foreach ($cat['items'] as &$item) {
                 if ($item['id'] === $itemId) {
                     $item['ar']    = $ar;
@@ -66,7 +69,7 @@ function menu_save_item(array $post): array {
             }
         } else {
             // New item
-            $cat['items'][] = [
+            $newItem = [
                 'id'    => menu_next_id($data),
                 'ar'    => $ar,
                 'en'    => $en,
@@ -74,6 +77,11 @@ function menu_save_item(array $post): array {
                 'price' => $price,
                 'image' => $image ?: 'images/menu/coffee.jpg',
             ];
+            // Mark as no-price item when category has has_price:false
+            if (($cat['has_price'] ?? true) === false) {
+                $newItem['has_price'] = false;
+            }
+            $cat['items'][] = $newItem;
             $found = true;
         }
         break;
