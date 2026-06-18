@@ -8,10 +8,15 @@ define('UPLOAD_DIR',  ROOT_DIR . '/images/menu/');
 define('UPLOAD_URL',  '../images/menu/');
 
 /* ── Password hash ──
-   Default password: Admin@Nejmt2025
-   Run setup.php to change it.
+   Stored in admin/includes/secret.php (gitignored, lives only on server).
+   To set/change: php -r "echo password_hash('YourPassword', PASSWORD_BCRYPT, ['cost'=>12]);"
+   Then put result in secret.php as: define('ADMIN_HASH', '$2y$12$...');
 */
-define('ADMIN_HASH', '$2y$12$WhBweF.CDHcxJdYtkmhABOLcZNL3KXYZ6uJzGLIWnUkJL5W8/WDFO');
+if (file_exists(__DIR__ . '/secret.php')) {
+    require_once __DIR__ . '/secret.php';
+} else {
+    define('ADMIN_HASH', 'PLACEHOLDER_create_secret_php_on_server');
+}
 
 /* ── Session ── */
 define('SESSION_NAME',   'nejmt_admin');

@@ -83,7 +83,7 @@ $csrf   = csrf_token();
           تعديل
         </button>
         <button class="btn-del"
-          onclick="deleteOffer(<?= $offer['id'] ?>, '<?= htmlspecialchars(addslashes($offer['title'])) ?>')">
+          onclick="deleteOffer(<?= $offer['id'] ?>, <?= htmlspecialchars(json_encode($offer['title']), ENT_QUOTES) ?>)">
           حذف
         </button>
       </div>

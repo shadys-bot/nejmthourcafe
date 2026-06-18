@@ -36,6 +36,10 @@ $csrf = csrf_token();
       <span class="cat-icon">🎁</span>
       <span>العروض</span>
     </a>
+    <a href="categories.php" style="border-right-color:transparent">
+      <span class="cat-icon">📂</span>
+      <span>الفئات</span>
+    </a>
     <div style="height:1px;background:var(--border);margin:.4rem 1.25rem"></div>
     <?php foreach ($cats as $cat): ?>
       <a href="?cat=<?= htmlspecialchars($cat['id']) ?>"
@@ -89,8 +93,8 @@ $csrf = csrf_token();
           <td class="dim"><?= htmlspecialchars($item['cal']) ?></td>
           <td>
             <div class="actions">
-              <button class="btn-edit" onclick="editItem(<?= htmlspecialchars(json_encode($item, JSON_UNESCAPED_UNICODE), ENT_QUOTES) ?>)">تعديل</button>
-              <button class="btn-del"  onclick="deleteItem(<?= $item['id'] ?>, '<?= htmlspecialchars(addslashes($item['ar'])) ?>')">حذف</button>
+              <button class="btn-edit" onclick="editItem(<?= htmlspecialchars(json_encode(array_merge($item, ['_cat' => $active]), JSON_UNESCAPED_UNICODE), ENT_QUOTES) ?>)">تعديل</button>
+              <button class="btn-del"  onclick="deleteItem(<?= $item['id'] ?>, <?= htmlspecialchars(json_encode($item['ar']), ENT_QUOTES) ?>)">حذف</button>
             </div>
           </td>
         </tr>
@@ -113,9 +117,17 @@ $csrf = csrf_token();
 
     <form id="item-form" novalidate>
       <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf) ?>">
-      <input type="hidden" name="category_id" value="<?= htmlspecialchars($active) ?>">
       <input type="hidden" name="item_id" id="f-item-id" value="0">
       <input type="hidden" name="image"    id="f-image" value="">
+
+      <div class="form-group">
+        <label>الفئة *</label>
+        <select name="category_id" id="f-cat-id">
+          <?php foreach ($cats as $cat): ?>
+          <option value="<?= htmlspecialchars($cat['id']) ?>"><?= $cat['icon'] ?> <?= htmlspecialchars($cat['label_ar']) ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
 
       <div class="form-row">
         <div class="form-group">
@@ -179,14 +191,17 @@ $csrf = csrf_token();
 <div id="toast" class="toast"></div>
 
 <script>
-const CSRF  = <?= json_encode($csrf) ?>;
-const CAT   = <?= json_encode($active) ?>;
+const CSRF       = <?= json_encode($csrf) ?>;
+const CAT        = <?= json_encode($active) ?>;
+const CATEGORIES = <?= json_encode(array_column($cats, 'id')) ?>;
 let pendingDeleteId = null;
 
 /* ── Modal ── */
 function openModal(item = null) {
   document.getElementById('modal-title').textContent = item ? 'تعديل الصنف' : 'إضافة صنف جديد';
   document.getElementById('f-item-id').value = item?.id ?? 0;
+  const catSel = document.getElementById('f-cat-id');
+  catSel.value = item?._cat ?? CAT;
   document.getElementById('f-ar').value      = item?.ar ?? '';
   document.getElementById('f-en').value      = item?.en ?? '';
   document.getElementById('f-price').value   = item?.price ?? '';

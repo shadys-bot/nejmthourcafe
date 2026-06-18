@@ -11,16 +11,21 @@ if (admin_is_logged_in()) {
 
 $error   = '';
 $expired = isset($_GET['expired']);
+$ip      = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
-    if (admin_login($password)) {
+    if (!rate_limit_ok($ip)) {
+        $error = 'تم تجاوز عدد المحاولات المسموح بها. حاول مجدداً بعد 15 دقيقة.';
+    } elseif (admin_login($password)) {
+        rate_limit_clear($ip);
         header('Location: dashboard.php');
         exit;
+    } else {
+        rate_limit_fail($ip);
+        sleep(1);
+        $error = 'كلمة المرور غير صحيحة';
     }
-    // Small delay to slow brute-force
-    sleep(1);
-    $error = 'كلمة المرور غير صحيحة';
 }
 ?>
 <!DOCTYPE html>

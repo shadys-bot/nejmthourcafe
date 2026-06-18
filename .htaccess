@@ -1,29 +1,53 @@
-# ── JSON files: never cache (always fresh after admin edits) ─────
-<FilesMatch "\.(json)$">
+# ── PHP errors off in production ─────────────────────────
+php_flag display_errors off
+php_flag log_errors on
+
+# ── JSON: always revalidate (admin edits visible on normal refresh) ──
+<FilesMatch "\.json$">
   Header set Cache-Control "no-cache, must-revalidate"
   Header set Pragma "no-cache"
+  Header unset Expires
 </FilesMatch>
 
-# ── Compression ──────────────────────────────────────────
+# ── Compression ───────────────────────────────────────────
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
 </IfModule>
 
-# ── Browser Caching ───────────────────────────────────────
+# ── Browser caching (static assets) ──────────────────────
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType image/jpeg        "access plus 1 month"
-  ExpiresByType image/png         "access plus 1 month"
-  ExpiresByType image/webp        "access plus 1 month"
-  ExpiresByType image/svg+xml     "access plus 1 month"
-  ExpiresByType text/css          "access plus 1 week"
+  ExpiresByType image/jpeg             "access plus 1 month"
+  ExpiresByType image/png              "access plus 1 month"
+  ExpiresByType image/webp             "access plus 1 month"
+  ExpiresByType image/svg+xml          "access plus 1 month"
+  ExpiresByType text/css               "access plus 1 week"
   ExpiresByType application/javascript "access plus 1 week"
-  ExpiresByType application/json  "access plus 1 hour"
 </IfModule>
 
-# ── Security headers ─────────────────────────────────────
+# ── Security headers ──────────────────────────────────────
 <IfModule mod_headers.c>
+  # Prevent MIME sniffing
   Header always set X-Content-Type-Options "nosniff"
+
+  # Clickjacking protection
   Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Referrer policy
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # HSTS — tell browsers: always use HTTPS for 1 year
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Content Security Policy
+  # - script-src: only our own scripts + inline (admin panel needs inline JS)
+  # - style-src: our CSS + Google Fonts + inline styles
+  # - font-src: Google Fonts files
+  # - img-src: self + data URIs + any https image (menu images, OG images)
+  # - frame-src: Google Maps iframe
+  # - connect-src: our own fetch() calls
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+
+  # Permissions policy — disable unused browser features
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
 </IfModule>
