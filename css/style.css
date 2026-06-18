@@ -309,6 +309,22 @@ section { padding: 5.5rem 2rem; }
 .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
 .calories { font-size: 0.72rem; color: var(--text-muted); }
 
+/* Games card — full image, no crop */
+.card-game .card-img-wrap {
+  height: 220px;
+  background: var(--bg-2);
+}
+.card-game .card-img-wrap img {
+  object-fit: contain;
+  padding: 1rem;
+}
+.card-game .card-body {
+  text-align: center;
+  padding: 0.75rem 1rem;
+}
+.card-game .name-ar { font-size: 1.05rem; margin-bottom: 2px; }
+.card-game .name-en { opacity: 0.6; }
+
 /* ══════════════════════════════════════════
    ABOUT
    ══════════════════════════════════════════ */

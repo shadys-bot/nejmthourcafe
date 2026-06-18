@@ -68,22 +68,24 @@ function renderCategory(catId) {
   if (!cat) return;
   const grid = document.getElementById('menu-grid');
 
+  const isGames = cat.id === 'games';
+
   grid.innerHTML = cat.items.map((item, i) => `
-    <div class="menu-card" style="transition-delay:${Math.min(i * 45, 400)}ms">
+    <div class="menu-card${isGames ? ' card-game' : ''}" style="transition-delay:${Math.min(i * 45, 400)}ms">
       <div class="card-img-wrap">
         <img src="${item.image}" alt="${item.ar}" loading="lazy"
              onerror="this.src='images/menu/coffee.jpg'">
-        <div class="card-img-overlay"></div>
+        ${!isGames ? '<div class="card-img-overlay"></div>' : ''}
       </div>
       <div class="card-body">
         <div class="card-names">
           <span class="name-ar">${item.ar}</span>
           <span class="name-en">${item.en}</span>
         </div>
-        <div class="card-meta">
+        ${!isGames ? `<div class="card-meta">
           ${item.cal !== '-' ? `<span class="calories">🔥 ${item.cal} سعر حراري</span>` : ''}
           ${item.price > 0 ? `<span class="price-badge"><span class="price-num">${item.price}</span>${SAR_SVG}</span>` : ''}
-        </div>
+        </div>` : ''}
       </div>
     </div>
   `).join('');
