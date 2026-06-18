@@ -38,6 +38,11 @@ $ext      = match($mimeType) {
     default      => 'jpg',
 };
 
+// Ensure upload directory exists
+if (!is_dir(UPLOAD_DIR)) {
+    mkdir(UPLOAD_DIR, 0755, true);
+}
+
 // Safe random filename — no user input in the name
 $filename = bin2hex(random_bytes(12)) . '.' . $ext;
 $destPath = UPLOAD_DIR . $filename;

@@ -246,6 +246,12 @@ document.getElementById('cat-form').addEventListener('submit', async e => {
   finally { btn.disabled = false; btn.textContent = 'حفظ'; }
 });
 
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if (document.getElementById('modal').classList.contains('open'))     closeModal();
+  if (document.getElementById('del-modal').classList.contains('open')) closeDelModal();
+});
+
 function toast(msg, type = 'ok') {
   const el = document.getElementById('toast');
   el.textContent = msg; el.className = 'toast show ' + type;

@@ -183,12 +183,20 @@ function menu_save_category(array $post): array {
                 $cat['icon']     = $icon ?: $cat['icon'];
                 $cat['label_ar'] = $labelAr;
                 $cat['label_en'] = $labelEn;
-                if ($hasPrice) unset($cat['has_price']);
-                else $cat['has_price'] = false;
+                if ($hasPrice) {
+                    unset($cat['has_price']);
+                    // restore price visibility on existing items
+                    foreach ($cat['items'] as &$it) { unset($it['has_price']); }
+                } else {
+                    $cat['has_price'] = false;
+                    // propagate no-price flag to existing items
+                    foreach ($cat['items'] as &$it) { $it['has_price'] = false; }
+                }
                 $found = true;
                 break;
             }
         }
+        unset($cat, $it);
         if (!$found) return ['ok' => false, 'msg' => 'الفئة غير موجودة'];
 
     } elseif ($action === 'delete') {

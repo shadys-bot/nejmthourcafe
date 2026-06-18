@@ -38,15 +38,15 @@ function setupTheme() {
   const saved = localStorage.getItem('theme');
   if (saved === 'dark') {
     document.body.classList.remove('light');
-    btn.textContent = '🌙';
+    btn.textContent = '☀️'; // dark mode → show sun (click to go light)
   } else {
     document.body.classList.add('light');
-    btn.textContent = '☀️';
+    btn.textContent = '🌙'; // light mode → show moon (click to go dark)
   }
 
   btn.addEventListener('click', () => {
     const isLight = document.body.classList.toggle('light');
-    btn.textContent = isLight ? '☀️' : '🌙';
+    btn.textContent = isLight ? '🌙' : '☀️';
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
   });
 }

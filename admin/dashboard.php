@@ -85,7 +85,7 @@ $csrf = csrf_token();
         <tr data-id="<?= $item['id'] ?>">
           <td>
             <img class="thumb" src="../<?= htmlspecialchars($item['image']) ?>"
-                 alt="" onerror="this.src='../images/menu/coffee.jpg'">
+                 alt="<?= htmlspecialchars($item['ar']) ?>" onerror="this.src='../images/menu/coffee.jpg'">
           </td>
           <td class="fw"><?= htmlspecialchars($item['ar']) ?></td>
           <td class="dim"><?= htmlspecialchars($item['en']) ?></td>
@@ -305,6 +305,13 @@ document.getElementById('item-form').addEventListener('submit', async e => {
     }
   } catch { toast('فشل الاتصال بالسيرفر', 'err'); }
   finally { btn.disabled = false; btn.textContent = 'حفظ'; }
+});
+
+/* ── Escape key ── */
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if (document.getElementById('modal').classList.contains('open'))     closeModal();
+  if (document.getElementById('del-modal').classList.contains('open')) closeDelModal();
 });
 
 /* ── Toast ── */
