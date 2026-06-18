@@ -274,14 +274,11 @@ section { padding: 5.5rem 2rem; }
 /* Card */
 .menu-card {
   background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-  overflow: hidden; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  overflow: hidden; transition: border-color 0.3s, box-shadow 0.3s, opacity 0.5s ease, transform 0.5s ease;
   opacity: 0; transform: translateY(20px);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  isolation: isolate;
 }
 .menu-card.visible { opacity: 1; transform: translateY(0); }
-.menu-card:hover { transform: translateY(-6px); border-color: var(--border-h); box-shadow: var(--shadow); }
+.menu-card:hover { border-color: var(--border-h); box-shadow: var(--shadow); }
 
 .card-img-wrap { position: relative; height: 200px; overflow: hidden; }
 .card-img-wrap img {
@@ -289,6 +286,7 @@ section { padding: 5.5rem 2rem; }
   transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
 }
 .menu-card:hover .card-img-wrap img { transform: scale(1.08); }
+.card-game:hover .card-img-wrap img { transform: none; }
 
 /* Gradient overlay */
 .card-img-overlay {
