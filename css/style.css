@@ -459,6 +459,26 @@ section { padding: 5.5rem 2rem; }
 .map-wrap iframe { width: 100%; height: 320px; border: none; display: block; filter: var(--map-filter); }
 body.light .map-wrap iframe { filter: none; }
 
+/* Light mode: header is transparent over dark hero — keep nav readable */
+body.light header:not(.scrolled) .nav-links a {
+  color: rgba(240, 222, 200, 0.82);
+}
+body.light header:not(.scrolled) .nav-links a:hover {
+  color: #DFB47A;
+}
+body.light header:not(.scrolled) .nav-socials a {
+  color: rgba(240, 222, 200, 0.82);
+  border-color: rgba(200, 149, 75, 0.35);
+}
+body.light header:not(.scrolled) .nav-socials a:hover {
+  color: #DFB47A;
+  border-color: rgba(200, 149, 75, 0.7);
+}
+body.light header:not(.scrolled) .nav-toggle {
+  color: rgba(240, 222, 200, 0.9);
+  border-color: rgba(200, 149, 75, 0.4);
+}
+
 /* ══════════════════════════════════════════
    FOOTER
    ══════════════════════════════════════════ */
