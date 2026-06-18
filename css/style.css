@@ -276,6 +276,9 @@ section { padding: 5.5rem 2rem; }
   background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
   overflow: hidden; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
   opacity: 0; transform: translateY(20px);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  isolation: isolate;
 }
 .menu-card.visible { opacity: 1; transform: translateY(0); }
 .menu-card:hover { transform: translateY(-6px); border-color: var(--border-h); box-shadow: var(--shadow); }
@@ -313,17 +316,19 @@ section { padding: 5.5rem 2rem; }
 .card-game .card-img-wrap {
   height: 220px;
   background: var(--bg-2);
+  padding: 1.25rem;           /* space on the CONTAINER, not the img */
 }
 .card-game .card-img-wrap img {
-  object-fit: contain;
-  padding: 1rem;
+  object-fit: contain;        /* never clips, always shows full image */
+  width: 100%;
+  height: 100%;
 }
 .card-game .card-body {
   text-align: center;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1rem 1rem;
 }
-.card-game .name-ar { font-size: 1.05rem; margin-bottom: 2px; }
-.card-game .name-en { opacity: 0.6; }
+.card-game .name-ar { font-size: 1rem; margin-bottom: 2px; }
+.card-game .name-en { opacity: 0.55; }
 
 /* ══════════════════════════════════════════
    ABOUT
