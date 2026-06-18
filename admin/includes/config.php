@@ -11,7 +11,7 @@ define('UPLOAD_URL',  '../images/menu/');
    Default password: Admin@Nejmt2025
    Run setup.php to change it.
 */
-define('ADMIN_HASH', '$2y$12$placeholder_run_setup_php_first_xxxxxxxxxxxxxxxxxx');
+define('ADMIN_HASH', '$2y$12$WhBweF.CDHcxJdYtkmhABOLcZNL3KXYZ6uJzGLIWnUkJL5W8/WDFO');
 
 /* ── Session ── */
 define('SESSION_NAME',   'nejmt_admin');

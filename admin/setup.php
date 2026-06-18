@@ -17,13 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($pw !== $pw2) {
         $error = 'كلمتا المرور غير متطابقتين';
     } else {
-        $hash    = password_hash($pw, PASSWORD_BCRYPT, ['cost' => 12]);
-        $config  = file_get_contents(__DIR__ . '/includes/config.php');
-        $updated = preg_replace(
-            "/define\('ADMIN_HASH',\s*'[^']*'\);/",
-            "define('ADMIN_HASH', '" . addslashes($hash) . "');",
-            $config
-        );
+        $hash   = password_hash($pw, PASSWORD_BCRYPT, ['cost' => 12]);
+        $config = file_get_contents(__DIR__ . '/includes/config.php');
+        // Use preg_match to find the old line, then str_replace to avoid
+        // preg_replace treating $2/$12 in the bcrypt hash as backreferences.
+        preg_match("/define\('ADMIN_HASH',\s*'[^']*'\);/", $config, $found);
+        $updated = $found
+            ? str_replace($found[0], "define('ADMIN_HASH', '" . $hash . "');", $config)
+            : false;
         if (file_put_contents(__DIR__ . '/includes/config.php', $updated)) {
             $done = true;
         } else {

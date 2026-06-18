@@ -84,7 +84,7 @@ $csrf = csrf_token();
           <td class="dim"><?= htmlspecialchars($item['cal']) ?></td>
           <td>
             <div class="actions">
-              <button class="btn-edit" onclick="editItem(<?= json_encode($item, JSON_UNESCAPED_UNICODE) ?>)">تعديل</button>
+              <button class="btn-edit" onclick="editItem(<?= htmlspecialchars(json_encode($item, JSON_UNESCAPED_UNICODE), ENT_QUOTES) ?>)">تعديل</button>
               <button class="btn-del"  onclick="deleteItem(<?= $item['id'] ?>, '<?= htmlspecialchars(addslashes($item['ar'])) ?>')">حذف</button>
             </div>
           </td>
