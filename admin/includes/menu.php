@@ -149,20 +149,41 @@ function menu_save_category(array $post): array {
     $labelEn  = trim($post['label_en'] ?? '');
     $hasPrice = ($post['has_price'] ?? '1') !== '0';
 
-    if (!in_array($action, ['add', 'edit', 'delete'], true)) {
+    if (!in_array($action, ['add', 'edit', 'delete', 'reorder'], true)) {
         return ['ok' => false, 'msg' => 'إجراء غير معروف'];
     }
     if (!$id) return ['ok' => false, 'msg' => 'معرف الفئة مطلوب'];
     if (!preg_match('/^[a-z0-9\-]+$/', $id)) {
         return ['ok' => false, 'msg' => 'المعرف: أحرف إنجليزية صغيرة وأرقام وشرطات فقط'];
     }
-    if ($action !== 'delete' && !$labelAr) {
+    if (!in_array($action, ['delete', 'reorder'], true) && !$labelAr) {
         return ['ok' => false, 'msg' => 'الاسم بالعربية مطلوب'];
     }
 
     $data = menu_read();
 
-    if ($action === 'add') {
+    if ($action === 'reorder') {
+        $direction = $post['direction'] ?? '';
+        if (!in_array($direction, ['up', 'down'], true)) {
+            return ['ok' => false, 'msg' => 'اتجاه الترتيب غير صحيح'];
+        }
+
+        $idx = null;
+        foreach ($data['categories'] as $i => $cat) {
+            if ($cat['id'] === $id) { $idx = $i; break; }
+        }
+        if ($idx === null) return ['ok' => false, 'msg' => 'الفئة غير موجودة'];
+
+        $newIdx = $direction === 'up' ? $idx - 1 : $idx + 1;
+        if ($newIdx < 0 || $newIdx >= count($data['categories'])) {
+            return ['ok' => true];
+        }
+
+        $tmp = $data['categories'][$idx];
+        $data['categories'][$idx] = $data['categories'][$newIdx];
+        $data['categories'][$newIdx] = $tmp;
+
+    } elseif ($action === 'add') {
         foreach ($data['categories'] as $c) {
             if ($c['id'] === $id) return ['ok' => false, 'msg' => 'هذا المعرف موجود مسبقاً'];
         }

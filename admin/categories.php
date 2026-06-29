@@ -58,7 +58,7 @@ $csrf = csrf_token();
   </div>
 
   <div class="cats-grid">
-    <?php foreach ($cats as $cat):
+    <?php foreach ($cats as $idx => $cat):
       $count = count($cat['items']);
       $noPrice = ($cat['has_price'] ?? true) === false;
     ?>
@@ -74,6 +74,10 @@ $csrf = csrf_token();
         </span>
       </div>
       <div class="actions">
+        <button class="btn-move" <?= $idx === 0 ? 'disabled' : '' ?>
+          onclick="moveCat(<?= htmlspecialchars(json_encode($cat['id']), ENT_QUOTES) ?>, 'up')">↑</button>
+        <button class="btn-move" <?= $idx === count($cats) - 1 ? 'disabled' : '' ?>
+          onclick="moveCat(<?= htmlspecialchars(json_encode($cat['id']), ENT_QUOTES) ?>, 'down')">↓</button>
         <button class="btn-edit"
           onclick="editCat(<?= htmlspecialchars(json_encode([
             'id'       => $cat['id'],
@@ -171,6 +175,13 @@ $csrf = csrf_token();
 .cat-meta { font-size: .78rem; color: var(--muted); display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 .cat-meta code { background: rgba(200,149,75,0.1); color: var(--gold); padding: 1px 6px; border-radius: 4px; font-size: .75rem; }
 .btn-del[disabled] { opacity: .35; cursor: not-allowed; }
+.btn-move {
+  width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(240,222,200,0.06); color: var(--cream); border: 1px solid var(--border);
+  border-radius: 8px; font-size: .9rem; cursor: pointer; transition: all .2s;
+}
+.btn-move:hover { border-color: var(--gold); color: var(--gold-l); }
+.btn-move[disabled] { opacity: .28; cursor: not-allowed; }
 </style>
 
 <script>
@@ -223,6 +234,25 @@ async function confirmDelete() {
   } else {
     toast('خطأ: ' + data.msg, 'err');
   }
+}
+
+async function moveCat(id, direction) {
+  const fd = new FormData();
+  fd.append('csrf_token', CSRF);
+  fd.append('action', 'reorder');
+  fd.append('cat_id', id);
+  fd.append('direction', direction);
+
+  try {
+    const res  = await fetch('api/save_category.php', { method: 'POST', body: fd });
+    const data = await res.json();
+    if (data.ok) {
+      toast('تم تحديث الترتيب ✓', 'ok');
+      setTimeout(() => location.reload(), 350);
+    } else {
+      toast('Ø®Ø·Ø£: ' + data.msg, 'err');
+    }
+  } catch { toast('ÙØ´Ù„ Ø§Ù„Ø§ØªØµØ§Ù„', 'err'); }
 }
 
 document.getElementById('cat-form').addEventListener('submit', async e => {
