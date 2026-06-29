@@ -35,7 +35,7 @@ function admin_require_login(): void {
 }
 
 function admin_login(string $password): bool {
-    if (!defined('ADMIN_HASH') || str_contains(ADMIN_HASH, 'PLACEHOLDER')) return false;
+    if (!defined('ADMIN_HASH') || stripos(ADMIN_HASH, 'placeholder') !== false) return false;
     if (!password_verify($password, ADMIN_HASH)) return false;
 
     admin_session_start();

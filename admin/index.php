@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <button type="submit" class="btn-submit">دخول →</button>
     </form>
 
-    <?php if (str_contains(ADMIN_HASH, 'placeholder')): ?>
+    <?php if (stripos(ADMIN_HASH, 'placeholder') !== false): ?>
       <div class="alert alert-warn" style="margin-top:1rem;">
         ⚠️ لم يتم ضبط كلمة المرور بعد.
         <a href="setup.php">اضغط هنا للإعداد</a>

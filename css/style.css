@@ -356,7 +356,8 @@ section { padding: 5.5rem 2rem; }
 .card-body { padding: 0.9rem 1.1rem; }
 .name-ar { display: block; font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 2px; }
 .name-en { display: block; font-size: 0.75rem; color: var(--gold); font-weight: 400; opacity: 0.75; margin-bottom: 6px; }
-.card-meta { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
+.card-price { margin: 0.25rem 0 0.35rem; }
+.card-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .calories { font-size: 0.72rem; color: var(--text-muted); }
 
 /* Games card — full image, no crop */
