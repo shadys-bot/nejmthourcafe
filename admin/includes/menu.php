@@ -148,6 +148,7 @@ function menu_save_category(array $post): array {
     $labelAr  = trim($post['label_ar'] ?? '');
     $labelEn  = trim($post['label_en'] ?? '');
     $hasPrice = ($post['has_price'] ?? '1') !== '0';
+    $isHidden = ($post['is_hidden'] ?? '0') === '1';
 
     if (!in_array($action, ['add', 'edit', 'delete', 'reorder'], true)) {
         return ['ok' => false, 'msg' => 'إجراء غير معروف'];
@@ -195,6 +196,7 @@ function menu_save_category(array $post): array {
             'items'    => [],
         ];
         if (!$hasPrice) $newCat['has_price'] = false;
+        if ($isHidden) $newCat['hidden'] = true;
         $data['categories'][] = $newCat;
 
     } elseif ($action === 'edit') {
@@ -212,6 +214,11 @@ function menu_save_category(array $post): array {
                     $cat['has_price'] = false;
                     // propagate no-price flag to existing items
                     foreach ($cat['items'] as &$it) { $it['has_price'] = false; }
+                }
+                if ($isHidden) {
+                    $cat['hidden'] = true;
+                } else {
+                    unset($cat['hidden']);
                 }
                 $found = true;
                 break;

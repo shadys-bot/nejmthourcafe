@@ -61,6 +61,7 @@ $csrf = csrf_token();
     <?php foreach ($cats as $idx => $cat):
       $count = count($cat['items']);
       $noPrice = ($cat['has_price'] ?? true) === false;
+      $isHidden = ($cat['hidden'] ?? false) === true;
     ?>
     <div class="cat-card" id="cc-<?= htmlspecialchars($cat['id']) ?>">
       <div class="cat-card-icon"><?= $cat['icon'] ?></div>
@@ -71,6 +72,7 @@ $csrf = csrf_token();
           <code><?= htmlspecialchars($cat['id']) ?></code>
           · <?= $count ?> عنصر
           <?= $noPrice ? '<span class="badge" style="background:rgba(200,149,75,0.12)">بدون أسعار</span>' : '' ?>
+          <?= $isHidden ? '<span class="badge badge-hidden">مخفية</span>' : '' ?>
         </span>
       </div>
       <div class="actions">
@@ -85,6 +87,7 @@ $csrf = csrf_token();
             'label_ar' => $cat['label_ar'],
             'label_en' => $cat['label_en'] ?? '',
             'has_price'=> ($cat['has_price'] ?? true) ? '1' : '0',
+            'is_hidden'=> ($cat['hidden'] ?? false) === true ? '1' : '0',
           ], JSON_UNESCAPED_UNICODE), ENT_QUOTES) ?>)">تعديل</button>
         <button class="btn-del"
           <?= $count > 0 ? 'disabled title="انقل العناصر أولاً"' : '' ?>
@@ -133,6 +136,10 @@ $csrf = csrf_token();
         <input type="checkbox" name="no_price" id="f-no-price" style="width:18px;height:18px;accent-color:var(--gold)">
         <label for="f-no-price" style="margin:0;cursor:pointer">فئة بدون أسعار <small style="color:var(--muted)">(مثال: ألعاب)</small></label>
       </div>
+      <div class="form-group" style="display:flex;align-items:center;gap:.75rem">
+        <input type="checkbox" name="is_hidden_toggle" id="f-is-hidden" style="width:18px;height:18px;accent-color:var(--gold)">
+        <label for="f-is-hidden" style="margin:0;cursor:pointer">إخفاء الفئة من المنيو</label>
+      </div>
       <div class="modal-actions">
         <button type="button" onclick="closeModal()" class="btn-cancel">إلغاء</button>
         <button type="submit" class="btn-save" id="btn-save">حفظ</button>
@@ -174,6 +181,7 @@ $csrf = csrf_token();
 .cat-card-info .dim   { font-size: .82rem; color: var(--muted); }
 .cat-meta { font-size: .78rem; color: var(--muted); display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 .cat-meta code { background: rgba(200,149,75,0.1); color: var(--gold); padding: 1px 6px; border-radius: 4px; font-size: .75rem; }
+.badge-hidden { background: rgba(224,85,85,0.14); color: var(--red); }
 .btn-del[disabled] { opacity: .35; cursor: not-allowed; }
 .btn-move {
   width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
@@ -199,6 +207,7 @@ function openModal(cat = null) {
   document.getElementById('f-label-ar').value = cat?.label_ar ?? '';
   document.getElementById('f-label-en').value = cat?.label_en ?? '';
   document.getElementById('f-no-price').checked = cat ? cat.has_price === '0' : false;
+  document.getElementById('f-is-hidden').checked = cat ? cat.is_hidden === '1' : false;
   document.getElementById('modal').classList.add('open');
 }
 function editCat(cat) { openModal(cat); }
@@ -262,6 +271,7 @@ document.getElementById('cat-form').addEventListener('submit', async e => {
   const fd = new FormData(e.target);
   // Convert checkbox to has_price value
   fd.append('has_price', document.getElementById('f-no-price').checked ? '0' : '1');
+  fd.append('is_hidden', document.getElementById('f-is-hidden').checked ? '1' : '0');
   try {
     const res  = await fetch('api/save_category.php', { method: 'POST', body: fd });
     const data = await res.json();

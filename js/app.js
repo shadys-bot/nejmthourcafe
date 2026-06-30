@@ -16,6 +16,10 @@ async function init() {
   try {
     const res = await fetch('menu.json', { cache: 'no-cache' });
     menuData = await res.json();
+    menuData.categories = (menuData.categories || []).filter(cat => cat.hidden !== true && cat.hidden !== '1');
+    if (!menuData.categories.some(cat => cat.id === activeCategory)) {
+      activeCategory = menuData.categories[0]?.id || '';
+    }
   } catch (e) {
     console.error('Failed to load menu.json', e);
     return;
@@ -54,6 +58,10 @@ function setupTheme() {
 /* ── Tabs ── */
 function buildTabs() {
   const tabsEl = document.getElementById('tabs');
+  if (!menuData.categories.length) {
+    tabsEl.innerHTML = '';
+    return;
+  }
   tabsEl.innerHTML = menuData.categories.map(cat => `
     <button class="tab-btn${cat.id === activeCategory ? ' active' : ''}"
             data-id="${esc(cat.id)}">
@@ -74,8 +82,11 @@ function buildTabs() {
 /* ── Render menu items ── */
 function renderCategory(catId) {
   const cat = menuData.categories.find(c => c.id === catId);
-  if (!cat) return;
   const grid = document.getElementById('menu-grid');
+  if (!cat) {
+    grid.innerHTML = '';
+    return;
+  }
 
   const isGames = cat.id === 'games';
   const items = isGames
