@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نجمة حور — قريباً نعود</title>
+<link rel="icon" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    background: #0A0603;
+    color: #F0DEC8;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+  .wrap { max-width: 480px; }
+  .logo { width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 2rem; display: block; }
+  h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 800; color: #C8954B; margin-bottom: 1rem; }
+  p  { font-size: 1rem; color: rgba(240,222,200,0.65); line-height: 1.9; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+         background: #C8954B; margin: 2rem auto 0; animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:.3;transform:scale(.85)} 50%{opacity:1;transform:scale(1)} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img src="images/logo.png" alt="نجمة حور" class="logo">
+  <h1>سنعود قريباً ☕</h1>
+  <p>الموقع تحت الصيانة لفترة وجيزة.<br>نعمل على تحسين تجربتك.</p>
+  <span class="dot"></span>
+</div>
+</body>
+</html>
